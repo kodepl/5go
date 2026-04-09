@@ -1,0 +1,32 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { SITE_CONFIG, LAYOUT_CONFIG } from '../../pbn-config';
+
+// Pobierz wszystkie artykuły
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const posts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const title = "All Articles";
+const description = `Browse all ${posts.length} articles on ${SITE_CONFIG.name}. Discover insights on self-improvement, wellness, productivity, and lifestyle.`;
+const breadcrumbs = [{ name: 'Articles', url: '/blog/', current: true }];
+---
+
+<BaseLayout title={title} description={description} type="website" breadcrumbs={breadcrumbs}>
+  <Breadcrumbs items={breadcrumbs} />
+  
+  <header class="mb-8">
+    <h1 class={`${LAYOUT_CONFIG.htmlStructure.headingClass} text-3xl md:text-4xl font-bold text-slate-900 mb-4 font-heading`}>
+      All Articles
+    </h1>
+    <p class="text-slate-600">
+      Discover <strong>{posts.length}</strong> {posts.length === 1 ? 'article' : 'articles'} covering self-improvement, wellness, productivity, and lifestyle topics.
+    </p>
+  </header>
+
+  <div class="posts-grid space-y-6">
+    {posts.map(post => <PostCard post={post} variant="horizontal" />)}
+  </div>
+</BaseLayout>
