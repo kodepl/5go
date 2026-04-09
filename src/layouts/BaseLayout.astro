@@ -1,0 +1,78 @@
+---
+import '../styles/global.css';
+import { SITE_CONFIG, LAYOUT_CONFIG } from '../pbn-config';
+import SeoHead from '../components/SeoHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Sidebar from '../components/Sidebar.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  title: string;
+  description?: string;
+  type?: 'website' | 'article' | 'blog' | 'page';
+  image?: string;
+  imageAlt?: string;
+  article?: CollectionEntry<'blog'>;
+  canonicalUrl?: string;
+  noindex?: boolean;
+  lastmod?: string;
+  breadcrumbs?: Array<{ name: string; url: string }>;
+  extraMeta?: Array<{ name: string; content: string }>;
+}
+
+const {
+  title, description, type = 'website', image, imageAlt, article, canonicalUrl, noindex, lastmod, breadcrumbs, extraMeta,
+} = Astro.props;
+
+const hasSidebar = LAYOUT_CONFIG.showSidebar && LAYOUT_CONFIG.sidebarPosition !== 'none';
+const sidebarOnLeft = LAYOUT_CONFIG.sidebarPosition === 'left';
+
+const wrapperClass = LAYOUT_CONFIG.htmlStructure.wrapperClass;
+const mainId = LAYOUT_CONFIG.htmlStructure.mainId;
+
+const layoutClasses = hasSidebar ? 'grid grid-cols-1 lg:grid-cols-12 gap-8' : '';
+const contentClasses = hasSidebar ? (sidebarOnLeft ? 'lg:col-span-9 lg:order-2' : 'lg:col-span-9') : '';
+const sidebarClasses = hasSidebar ? (sidebarOnLeft ? 'lg:col-span-3 lg:order-1' : 'lg:col-span-3') : '';
+---
+
+<!DOCTYPE html>
+<html lang={SITE_CONFIG.language} class="scroll-smooth">
+<head>
+  <SeoHead
+    title={title}
+    description={description}
+    type={type}
+    image={image}
+    imageAlt={imageAlt}
+    article={article}
+    canonicalUrl={canonicalUrl}
+    noindex={noindex}
+    lastmod={lastmod}
+    breadcrumbs={breadcrumbs}
+    extraMeta={extraMeta}
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="font-body bg-surface text-text-primary antialiased min-h-screen flex flex-col">
+  <Header />
+  <div class={`${wrapperClass} flex-1`}>
+    <div class={`container mx-auto px-4 sm:px-6 lg:px-8 py-8 ${hasSidebar ? 'xl:max-w-7xl' : ''}`}>
+      <div class={layoutClasses}>
+        <main id={mainId} class={contentClasses}>
+          <slot />
+        </main>
+        {hasSidebar && (
+          <aside class={sidebarClasses}>
+            <Sidebar />
+          </aside>
+        )}
+      </div>
+    </div>
+  </div>
+  <Footer />
+</body>
+</html>

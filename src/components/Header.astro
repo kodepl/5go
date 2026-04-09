@@ -1,0 +1,25 @@
+---
+import { SITE_CONFIG, LAYOUT_CONFIG } from '../pbn-config';
+
+const hasSidebar = LAYOUT_CONFIG.showSidebar && LAYOUT_CONFIG.sidebarPosition !== 'none';
+---
+
+{LAYOUT_CONFIG.headerStyle === 'centered' && (
+  <header class={`${LAYOUT_CONFIG.colors.headerBg} ${LAYOUT_CONFIG.colors.headerBorder} py-8`}>
+    <div class={`container mx-auto px-4 text-center ${hasSidebar ? 'xl:max-w-7xl' : ''}`}>
+      <a href="/" class={`${LAYOUT_CONFIG.getPrefixedClass('logo')} text-4xl font-bold text-slate-900 hover:text-primary-600 transition-colors inline-block font-heading`}>
+        {SITE_CONFIG.name}
+      </a>
+      <p class="mt-2 text-slate-500 max-w-md mx-auto">
+        {SITE_CONFIG.description.slice(0, 100)}{SITE_CONFIG.description.length > 100 ? '...' : ''}
+      </p>
+      <nav class="mt-6 flex justify-center items-center space-x-6">
+        <a href="/" class="text-slate-600 hover:text-primary-600 font-medium transition-colors">Home</a>
+        <a href="/blog/" class="text-slate-600 hover:text-primary-600 font-medium transition-colors">Articles</a>
+        <a href="/tag/self-improvement/" class="text-slate-600 hover:text-primary-600 font-medium transition-colors">Self-Improvement</a>
+        <a href="/tag/wellness/" class="text-slate-600 hover:text-primary-600 font-medium transition-colors">Wellness</a>
+        <a href="/tag/productivity/" class="text-slate-600 hover:text-primary-600 font-medium transition-colors">Productivity</a>
+      </nav>
+    </div>
+  </header>
+)}

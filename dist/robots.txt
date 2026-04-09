@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+User-agent: *
+Disallow: /admin/
+Disallow: /api/
+
+Sitemap: https://5go.biz/sitemap.xml

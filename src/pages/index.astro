@@ -1,0 +1,62 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import { SITE_CONFIG, LAYOUT_CONFIG } from '../pbn-config';
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const posts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+let featuredPost = null;
+let regularPosts = posts;
+
+if (LAYOUT_CONFIG.homeVariant === 'magazine' && posts.length > 0) {
+  featuredPost = posts.find(p => p.data.featured) || posts[0];
+  regularPosts = posts.filter(p => p.slug !== featuredPost?.slug);
+}
+---
+
+<BaseLayout title={SITE_CONFIG.name} description={SITE_CONFIG.description} type="website" breadcrumbs={[]}>
+  {LAYOUT_CONFIG.homeVariant === 'magazine' && (
+    <div class="space-y-8">
+      {featuredPost && (
+        <section class="featured-hero">
+          <PostCard post={featuredPost} variant="featured" />
+        </section>
+      )}
+      <section class="posts-grid">
+        <h2 class={`${LAYOUT_CONFIG.htmlStructure.headingClass} text-2xl font-bold text-slate-900 mb-6 font-heading`}>Latest Articles</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {regularPosts.map(post => <PostCard post={post} variant="default" />)}
+        </div>
+      </section>
+    </div>
+  )}
+
+  {LAYOUT_CONFIG.homeVariant === 'grid' && (
+    <section class="posts-grid">
+      <div class={`grid gap-6 ${LAYOUT_CONFIG.postsPerRow === 2 ? 'grid-cols-1 md:grid-cols-2' : LAYOUT_CONFIG.postsPerRow === 4 ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'}`}>
+        {posts.map(post => <PostCard post={post} variant="default" />)}
+      </div>
+    </section>
+  )}
+
+  {LAYOUT_CONFIG.homeVariant === 'list' && (
+    <section class="posts-list space-y-6">
+      {posts.map(post => <PostCard post={post} variant="horizontal" />)}
+    </section>
+  )}
+
+  {LAYOUT_CONFIG.homeVariant === 'minimal' && (
+    <section class="posts-minimal">
+      <div class="space-y-0 divide-y divide-slate-100">
+        {posts.map(post => <PostCard post={post} variant="compact" />)}
+      </div>
+    </section>
+  )}
+
+  <section class="mt-16 p-8 bg-slate-50 rounded-xl">
+    <h2 class="text-2xl font-bold text-slate-900 mb-4 font-heading">Welcome to {SITE_CONFIG.name}</h2>
+    <p class="text-slate-600 leading-relaxed">{SITE_CONFIG.description}</p>
+  </section>
+</BaseLayout>
