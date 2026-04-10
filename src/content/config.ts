@@ -13,7 +13,7 @@ const blogCollection = defineCollection({
     seoDescription: z.string().min(10).max(160).optional(),
     keywords: z.array(z.string()).optional(),
     // Zewnętrzne URL-e obrazków (np. z picsum.photos)
-    coverImage: z.string().url().optional(),
+    coverImage: z.string().optional(),
     coverAlt: z.string().optional(),
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
