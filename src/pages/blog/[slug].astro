@@ -55,7 +55,7 @@ const hasTags = data.tags && data.tags.length > 0;
 
   {data.coverImage && (
     <figure class="article-image mb-8">
-      <img src={data.coverImage} alt={data.coverAlt || data.title} width={1200} height={675} class="w-full h-auto rounded-xl shadow-lg" loading="eager" decoding="async" crossorigin="anonymous" />
+      <img src={data.coverImage} alt={data.coverAlt || data.title} width={1200} height={675} class="w-full h-auto rounded-xl shadow-lg" loading="eager" decoding="async" />
       {data.coverAlt && <figcaption class="text-center text-sm text-slate-500 mt-3">{data.coverAlt}</figcaption>}
     </figure>
   )}
