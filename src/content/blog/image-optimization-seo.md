@@ -5,7 +5,7 @@ pubDate: 2026-04-15
 author: "5Go Editorial Team"
 category: "SEO"
 tags: ["image seo", "seo optimization", "digital marketing", "website performance", "visual content"]
-coverImage: "https://picsum.photos/seed/image-seo-guide/1200/675.jpg"
+coverImage: "https://picsum.photos/seed/image-seo-guide/1200/675"
 coverAlt: "Computer screen showing image optimization process with SEO metrics"
 featured: false
 relatedPosts: ["technology-communication", "learn-new-skills", "free-productivity-apps-2026"]
