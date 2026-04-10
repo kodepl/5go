@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
+import sitemap from '@astrojs/sitemap';
 
 // ============================================
 // KONFIGURACJA ASTRO - 5Go Blog
@@ -18,7 +19,8 @@ export default defineConfig({
       configFile: './tailwind.config.mjs',
       applyBaseStyles: false,
     }),
-    // Sitemap wyłączony - używamy ręcznego
+    // Sitemap automatyczny - zbiera wszystkie statyczne strony
+    sitemap(),
   ],
   
   // Optymalizacje obrazów
