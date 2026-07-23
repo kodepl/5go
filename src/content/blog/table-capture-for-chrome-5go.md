@@ -25,7 +25,7 @@ Specialised extensions solve this by reading the underlying HTML directly rather
 
 ## Introducing Table Capture for Chrome
 
-**Table Capture** is a Chrome extension designed specifically for this task. It scans the current page, identifies all the HTML tables, and lets you copy or download them in a structured format. You can find it listed on the [Chrome Web Store](https://chromewebstore.google.com/), where it sits among the better-reviewed tools in the data-extraction category.
+**Table Capture** is a Chrome extension designed specifically for this task. It scans the current page, identifies all the HTML tables, and lets you copy or download them in a structured format. You can find it listed on the [Chrome Web Store](https://chromewebstore.google.com/), where it sits among the better-reviewed tools in the data-extraction category. The official site for [**Table Capture for Chrome**](https://tablecapture.co/) also explains the supported formats and the latest features.
 
 What makes it useful is the focus on tables rather than full-page scraping. General web scrapers can pull tables, but they often require selectors, configuration, or even scripting. **Table Capture for Chrome** is built for non-technical users. You open the page, click the extension icon, and pick the table you want. It is a small but meaningful difference when you only need one dataset from a larger article or dashboard.
 
