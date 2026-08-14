@@ -1,0 +1,6 @@
+name = "5go"
+compatibility_date = "2025-01-01"
+account_id = "420c78a4a80f1246faa8a023d981b9c5"
+
+[assets]
+directory = "dist"
